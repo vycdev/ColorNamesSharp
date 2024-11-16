@@ -16,10 +16,15 @@
     <RepositoryUrl>https://github.com/vycdev/color-names-csharp</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>color;colornames;color names;colour;colour names;colournames;color names csharp</PackageTags>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
     <None Update="icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="LICENSE.txt">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
