@@ -1,40 +1,44 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <RootNamespace>color_names_csharp</RootNamespace>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Title>Color Names</Title>
-    <Authors>vycdev</Authors>
-    <Company />
-    <Description>A simple colors library that can be used to find the closest color name of any given color. You can use the default list of colors with over 30k color names, or you can create your own.  </Description>
-    <PackageProjectUrl>https://github.com/vycdev/color-names-csharp</PackageProjectUrl>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageIcon>icon.png</PackageIcon>
-    <RepositoryUrl>https://github.com/vycdev/color-names-csharp</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <PackageTags>color;colornames;color names;colour;colour names;colournames;color names csharp</PackageTags>
-    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<RootNamespace>color_names_csharp</RootNamespace>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Title>Color Names</Title>
+		<Authors>vycdev</Authors>
+		<Company />
+		<Description>A simple colors library that can be used to find the closest color name of any given color. You can use the default list of colors with over 30k color names, or you can create your own.  </Description>
+		<PackageProjectUrl>https://github.com/vycdev/color-names-csharp</PackageProjectUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageIcon>icon.png</PackageIcon>
+		<RepositoryUrl>https://github.com/vycdev/color-names-csharp</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>color;colornames;color names;colour;colour names;colournames;color names csharp</PackageTags>
+		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Update="icon.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-    <None Update="LICENSE.txt">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-    <None Update="README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-    <None Update="Resources\colornames.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
+	<ItemGroup>
+		<None Update="icon.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Update="LICENSE.txt">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Update="README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Update="Resources\colornames.csv">
+			<Pack>True</Pack>
+			<PackagePath>\Resources</PackagePath>
+		</None>
+		<None Update="Resources\colornames.csv">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 </Project>
