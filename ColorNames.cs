@@ -82,4 +82,131 @@ public class ColorNames(List<NamedColor> namedColors)
 
         return BestNode?.Color;
     }
+
+    /// <summary>
+    /// Finds the closest color for given RGB color values
+    /// </summary>
+    /// <param name="r"></param>
+    /// <param name="g"></param>
+    /// <param name="b"></param>
+    /// <returns></returns>
+    public NamedColor? FindClosestColor(short r, short g, short b)
+    {
+        return FindClosestColor((r, g, b));
+    }
+
+    /// <summary>
+    /// Finds the closest color for given hex color value
+    /// </summary>
+    /// <param name="hex"></param>
+    /// <returns></returns>
+    public NamedColor? FindClosestColor(string hex)
+    {
+        (short r, short g, short b) = ColorConverter.HexToRgb(hex);
+        return FindClosestColor(r, g, b);
+    }
+
+    /// <summary>
+    /// Finds the closest color for a given NamedColor
+    /// </summary>
+    /// <param name="color"></param>
+    /// <returns></returns>
+    public NamedColor? FindClosestColor(NamedColor color)
+    {
+        return FindClosestColor(color.Rgb);
+    }
+
+    /// <summary>
+    /// Finds the closest color for given lab color values
+    /// </summary>
+    /// <param name="l"></param>
+    /// <param name="a"></param>
+    /// <param name="b"></param>
+    /// <returns></returns>
+    public NamedColor? FindClosestColor(float l, float a, float b)
+    {
+        MinDistance = double.PositiveInfinity;
+        BestNode = null; 
+
+        SearchNearest(ColorTreeRoot, l, a, b, 0);
+
+        return BestNode?.Color;
+    }
+
+    /// <summary>
+    /// Finds the closest color for given lab color values
+    /// </summary>
+    /// <param name="lab"></param>
+    /// <returns></returns>
+    public NamedColor? FindClosestColor((float, float, float) lab)
+    {
+        return FindClosestColor(lab.Item1, lab.Item2, lab.Item3);
+    }
+
+    /// <summary>
+    /// Finds the closest color name for given RGB color values
+    /// </summary>
+    /// <param name="RGB"></param>
+    /// <returns></returns>
+    public string FindClosestColorName((short, short, short) RGB)
+    {
+        NamedColor? color = FindClosestColor(RGB);
+        return color?.Name ?? "Unknown";
+    }
+
+    /// <summary>
+    /// Finds the closest color name for given RGB color values
+    /// </summary>
+    /// <param name="r"></param>
+    /// <param name="g"></param>
+    /// <param name="b"></param>
+    /// <returns></returns>
+    public string FindClosestColorName(short r, short g, short b)
+    {
+        return FindClosestColorName((r, g, b));
+    }
+
+    /// <summary>
+    /// Finds the closest color name for given hex color value
+    /// </summary>
+    /// <param name="hex"></param>
+    /// <returns></returns>
+    public string FindClosestColorName(string hex)
+    {
+        NamedColor? color = FindClosestColor(hex);
+        return color?.Name ?? "Unknown";
+    }
+
+    /// <summary>
+    /// Finds the closest color name for a given NamedColor
+    /// </summary>
+    /// <param name="color"></param>
+    /// <returns></returns>
+    public string FindClosestColorName(NamedColor color)
+    {
+        return FindClosestColorName(color.Rgb);
+    }
+
+    /// <summary>
+    /// Finds the closest color name for given lab color values
+    /// </summary>
+    /// <param name="l"></param>
+    /// <param name="a"></param>
+    /// <param name="b"></param>
+    /// <returns></returns>
+    public string FindClosestColorName(float l, float a, float b)
+    {
+        NamedColor? color = FindClosestColor(l, a, b);
+        return color?.Name ?? "Unknown";
+    }
+
+    /// <summary>
+    /// Finds the closest color name for given lab color values
+    /// </summary>
+    /// <param name="lab"></param>
+    /// <returns></returns>
+    public string FindClosestColorName((float, float, float) lab)
+    {
+        return FindClosestColorName(lab.Item1, lab.Item2, lab.Item3);
+    }
 }

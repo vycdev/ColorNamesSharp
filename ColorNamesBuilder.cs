@@ -13,7 +13,43 @@ public class ColorNamesBuilder
     /// </summary>
     public ColorNames BuildColorNames => new(NamedColors);
 
-    // TODO: make add color methods 
+    /// <summary>
+    /// Adds a named color to the list of named colors in this builder.
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="r"></param>
+    /// <param name="g"></param>
+    /// <param name="b"></param>
+    /// <returns></returns>
+    public ColorNamesBuilder Add(string name, short r, short g, short b)
+    {
+        NamedColors.Add(new NamedColor(name, r, g, b));
+        return this;
+    }
+
+    /// <summary>
+    /// Adds a named color to the list of named colors in this builder.
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="hex"></param>
+    /// <returns></returns>
+    public ColorNamesBuilder Add(string name, string hex)
+    {
+        (short r, short g, short b) = ColorConverter.HexToRgb(hex);
+        NamedColors.Add(new NamedColor(name, r, g, b));
+        return this;
+    }
+
+    /// <summary>
+    /// Adds a named color to the list of named colors in this builder.
+    /// </summary>
+    /// <param name="color"></param>
+    /// <returns></returns>
+    public ColorNamesBuilder Add(NamedColor color)
+    {
+        NamedColors.Add(color);
+        return this;
+    }
 
     /// <summary>
     /// Adds the colors from a CSV file to the list of named colors in this builder.
