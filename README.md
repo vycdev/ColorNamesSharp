@@ -43,6 +43,8 @@ While researching K-D trees, I put together some visuals to help me understand, 
 
 # Usage
 
+You can find the nuget package here: https://www.nuget.org/packages/color-names-csharp
+
 > [!NOTE]
 > This section is a work in progress.
 > If you'd like to contribute to the usage guide, feel free to open a PR with your changes.
