@@ -18,7 +18,11 @@
 		<PackageTags>color;colornames;color names;colour;colour names;colournames;color names csharp</PackageTags>
 		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-		<Version>1.0.2</Version>
+		<Version>1.0.3</Version>
+		<DebugType>portable</DebugType>
+		<DebugSymbols>true</DebugSymbols>
+		<IncludeSymbols>True</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 
 	<ItemGroup>
