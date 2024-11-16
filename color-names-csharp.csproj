@@ -18,6 +18,7 @@
 		<PackageTags>color;colornames;color names;colour;colour names;colournames;color names csharp</PackageTags>
 		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<Version>1.0.2</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -33,12 +34,9 @@
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>
-		<None Update="Resources\colornames.csv">
-			<Pack>True</Pack>
-			<PackagePath>\Resources</PackagePath>
-		</None>
-		<None Update="Resources\colornames.csv">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="Resources\colornames.csv" />
 	</ItemGroup>
 </Project>
