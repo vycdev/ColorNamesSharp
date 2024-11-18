@@ -42,7 +42,7 @@ While researching K-D trees, I put together some visuals to help me understand, 
 <br>
 
 # Usage
-You can download and install the [nuget package form here.](https://www.nuget.org/packages/color-names-csharp) <br>
+You can download and install the [nuget package from here.](https://www.nuget.org/packages/color-names-csharp) <br>
 Or you can clone this repository and use it as a library in your project.
 
 ## Creating the instance
