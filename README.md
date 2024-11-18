@@ -35,19 +35,43 @@ Other libraries with similar functionality seem to often approach this by iterat
 
 ### Pretty notes ✨
 While researching K-D trees, I put together some visuals to help me understand, and I figured why not make them pretty and provide it here. Hopfully these prove to be helpful for anyone interested in learning about K-D trees. And remember, there are plenty of other great resources out there (YouTube videos did it for me!).
-![Untitled-2024-03-21-21563x](https://github.com/user-attachments/assets/33405c02-8fa0-4c89-8f18-13e011b6f717)
+![kdTree](/kdTree.png)
 > [!NOTE]
 > You can open that image in a new tab for a nicer, full-resolution view.
 
 <br>
 
 # Usage
+You can download and install the [nuget package form here.](https://www.nuget.org/packages/color-names-csharp) <br>
+Or you can clone this repository and use it as a library in your project.
 
-You can find the nuget package here: https://www.nuget.org/packages/color-names-csharp
+## Creating the instance
+```csharp
+ColorNames colorNames = new ColorNamesBuilder()
+	.Add("Best Blue", "#3299fe") // Add your own custom colors
+	.LoadDefault() // Load the default color list
+	.AddFromCsv("path/to/your/colorlist.csv") // Add a custom color list from a csv file
+	.BuildColorNames; // Get a new ColorNames instance that includes all the colors you've added
+```
 
-> [!NOTE]
-> This section is a work in progress.
-> If you'd like to contribute to the usage guide, feel free to open a PR with your changes.
+## Getting a fiting color name
+
+```csharp
+NamedColor namedColor = new("Best Blue", 50, 153, 254);
+
+// You can directly get the name of the color as a string
+string colorNameFromHex = colorNames.FindClosestColorName("#ffffff");
+string colorNameFromRgb = colorNames.FindClosestColorName(255, 255, 255);
+string colorNameFroNamedColor = colorNames.FindClosestColorName(namedColor);
+
+// Or similarly you can get the NamedColor object
+NamedColor namedColorFromHex = colorNames.FindClosestColor("#ffffff");
+NamedColor namedColorFromRgb = colorNames.FindClosestColorName(255, 255, 255);
+NamedColor namedColorFroNamedColor = colorNames.FindClosestColorName(namedColor);
+
+// Or a random color
+NamedColor randomColor = colorNames.GetRandomNamedColor();
+```
 
 ### Other 
 
