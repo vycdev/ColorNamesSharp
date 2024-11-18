@@ -1,7 +1,7 @@
-﻿using color_names_csharp.Utility;
+﻿using ColorNames.Utility;
 using System.Reflection;
 
-namespace color_names_csharp;
+namespace ColorNames;
 public class ColorNamesBuilder
 {
     /// <summary>
@@ -92,7 +92,7 @@ public class ColorNamesBuilder
     /// </summary>
     public ColorNamesBuilder LoadDefault()
     {
-        using Stream? stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("color_names_csharp.Resources.colornames.csv");
+        using Stream? stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("ColorNames.ColorLists.Default.csv");
 
         if (stream == null)
             throw new Exception("Could not load default color names CSV file.");

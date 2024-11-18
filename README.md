@@ -60,14 +60,14 @@ ColorNames colorNames = new ColorNamesBuilder()
 NamedColor namedColor = new("Best Blue", 50, 153, 254);
 
 // You can directly get the name of the color as a string
-string colorNameFromHex = colorNames.FindClosestColorName("#ffffff");
-string colorNameFromRgb = colorNames.FindClosestColorName(255, 255, 255);
-string colorNameFroNamedColor = colorNames.FindClosestColorName(namedColor);
+string colorNameFromHex = colorNames.FindClosestColorName("#facfea"); // Classic Rose
+string colorNameFromRgb = colorNames.FindClosestColorName(224, 224, 255); // Stoic White
+string colorNameFroNamedColor = colorNames.FindClosestColorName(namedColor); // Best Blue
 
 // Or similarly you can get the NamedColor object
-NamedColor namedColorFromHex = colorNames.FindClosestColor("#ffffff");
-NamedColor namedColorFromRgb = colorNames.FindClosestColorName(255, 255, 255);
-NamedColor namedColorFromNamedColor = colorNames.FindClosestColorName(namedColor);
+NamedColor namedColorFromHex = colorNames.FindClosestColor("#facfea"); // Classic Rose
+NamedColor namedColorFromRgb = colorNames.FindClosestColorName(224, 224, 255); // Stoic White
+NamedColor namedColorFromNamedColor = colorNames.FindClosestColorName(namedColor); // Best Blue
 
 // Or a random color
 NamedColor randomColor = colorNames.GetRandomNamedColor();

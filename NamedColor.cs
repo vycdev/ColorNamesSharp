@@ -1,5 +1,6 @@
-﻿using color_names_csharp.Utility;
-namespace color_names_csharp;
+﻿using ColorNames.Utility;
+
+namespace ColorNames;
 public class NamedColor(string name, short r, short g, short b)
 {
     public string Name { get; } = name;

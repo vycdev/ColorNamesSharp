@@ -1,10 +1,10 @@
-﻿namespace color_names_csharp.tree;
+﻿namespace ColorNames.Tree;
 
 public class KDTreeBuilder
 {
     public static KDNode? Build(List<NamedColor> colors, int depth)
     {
-        if(colors.Count == 0)
+        if (colors.Count == 0)
             return null;
 
         int axis = depth % 3;
