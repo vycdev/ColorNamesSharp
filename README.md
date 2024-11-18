@@ -67,7 +67,7 @@ string colorNameFroNamedColor = colorNames.FindClosestColorName(namedColor);
 // Or similarly you can get the NamedColor object
 NamedColor namedColorFromHex = colorNames.FindClosestColor("#ffffff");
 NamedColor namedColorFromRgb = colorNames.FindClosestColorName(255, 255, 255);
-NamedColor namedColorFroNamedColor = colorNames.FindClosestColorName(namedColor);
+NamedColor namedColorFromNamedColor = colorNames.FindClosestColorName(namedColor);
 
 // Or a random color
 NamedColor randomColor = colorNames.GetRandomNamedColor();
