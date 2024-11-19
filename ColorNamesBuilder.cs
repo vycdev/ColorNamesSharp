@@ -92,7 +92,7 @@ public class ColorNamesBuilder
     /// </summary>
     public ColorNamesBuilder LoadDefault()
     {
-        using Stream? stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("ColorNames.ColorLists.Default.csv");
+        using Stream? stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("ColorNamesSharp.ColorLists.Default.csv");
 
         if (stream == null)
             throw new Exception("Could not load default color names CSV file.");

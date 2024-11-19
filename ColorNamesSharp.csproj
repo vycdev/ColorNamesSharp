@@ -18,7 +18,7 @@
 		<PackageTags>color;colornames;color names;colour;colour names;colournames;color names csharp;colornamesharp</PackageTags>
 		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-		<Version>1.0.0</Version>
+		<Version>1.0.2</Version>
 		<DebugType>portable</DebugType>
 		<DebugSymbols>true</DebugSymbols>
 		<IncludeSymbols>True</IncludeSymbols>
