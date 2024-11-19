@@ -75,4 +75,4 @@ NamedColor randomColor = colorNames.GetRandomNamedColor();
 
 ### Credits 
 
-This library is a C# implementation of the original [color names library by meodai](https://github.com/meodai/color-names) and it takes inspiration from [UwUAroze's implementation in Kotlin.](https://github.com/UwUAroze/Color-Names). Huge thanks to both of them for their work!
+This library is a C# implementation of the original [color names library by meodai](https://github.com/meodai/color-names) and it takes inspiration from [UwUAroze's implementation in Kotlin.](https://github.com/UwUAroze/Color-Names) Huge thanks to both of them for their work!
