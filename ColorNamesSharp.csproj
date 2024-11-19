@@ -10,10 +10,10 @@
 		<Authors>vycdev</Authors>
 		<Company />
 		<Description>A simple colors library that can be used to find the closest color name of any given color. You can use the default list of colors with over 30k color names, or you can create your own.  </Description>
-		<PackageProjectUrl>https://github.com/vycdev/color-names-csharp</PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/vycdev/ColorNamesSharp</PackageProjectUrl>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageIcon>icon.png</PackageIcon>
-		<RepositoryUrl>https://github.com/vycdev/color-names-csharp</RepositoryUrl>
+		<RepositoryUrl>https://github.com/vycdev/ColorNamesSharp</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>color;colornames;color names;colour;colour names;colournames;color names csharp;colornamesharp</PackageTags>
 		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
