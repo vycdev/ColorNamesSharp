@@ -1,4 +1,4 @@
-﻿namespace color_names_csharp.tree;
+﻿namespace ColorNamesSharp.Tree;
 
 public class KDNode(NamedColor color)
 {

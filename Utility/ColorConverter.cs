@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace color_names_csharp.Utility;
+﻿namespace ColorNamesSharp.Utility;
 public static class ColorConverter
 {
     /// <summary>
@@ -39,9 +31,9 @@ public static class ColorConverter
         rgb[1] = rgb[1] * 100.0f;
         rgb[2] = rgb[2] * 100.0f;
 
-        xyz[0] = (rgb[0] * .412453f) + (rgb[1] * .357580f) + (rgb[2] * .180423f);
-        xyz[1] = (rgb[0] * .212671f) + (rgb[1] * .715160f) + (rgb[2] * .072169f);
-        xyz[2] = (rgb[0] * .019334f) + (rgb[1] * .119193f) + (rgb[2] * .950227f);
+        xyz[0] = rgb[0] * .412453f + rgb[1] * .357580f + rgb[2] * .180423f;
+        xyz[1] = rgb[0] * .212671f + rgb[1] * .715160f + rgb[2] * .072169f;
+        xyz[2] = rgb[0] * .019334f + rgb[1] * .119193f + rgb[2] * .950227f;
 
         xyz[0] = xyz[0] / 95.047f;
         xyz[1] = xyz[1] / 100.0f;
@@ -50,19 +42,19 @@ public static class ColorConverter
         if (xyz[0] > .008856f)
             xyz[0] = (float)Math.Pow(xyz[0], 1.0 / 3.0);
         else
-            xyz[0] = (xyz[0] * 7.787f) + (16.0f / 116.0f);
+            xyz[0] = xyz[0] * 7.787f + 16.0f / 116.0f;
 
         if (xyz[1] > .008856f)
             xyz[1] = (float)Math.Pow(xyz[1], 1.0 / 3.0);
         else
-            xyz[1] = (xyz[1] * 7.787f) + (16.0f / 116.0f);
+            xyz[1] = xyz[1] * 7.787f + 16.0f / 116.0f;
 
         if (xyz[2] > .008856f)
             xyz[2] = (float)Math.Pow(xyz[2], 1.0 / 3.0);
         else
-            xyz[2] = (xyz[2] * 7.787f) + (16.0f / 116.0f);
+            xyz[2] = xyz[2] * 7.787f + 16.0f / 116.0f;
 
-        lab[0] = (116.0f * xyz[1]) - 16.0f;
+        lab[0] = 116.0f * xyz[1] - 16.0f;
         lab[1] = 500.0f * (xyz[0] - xyz[1]);
         lab[2] = 200.0f * (xyz[1] - xyz[2]);
 

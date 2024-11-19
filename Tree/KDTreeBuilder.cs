@@ -1,10 +1,10 @@
-﻿namespace color_names_csharp.tree;
+﻿namespace ColorNamesSharp.Tree;
 
 public class KDTreeBuilder
 {
     public static KDNode? Build(List<NamedColor> colors, int depth)
     {
-        if(colors.Count == 0)
+        if (colors.Count == 0)
             return null;
 
         int axis = depth % 3;
@@ -17,10 +17,11 @@ public class KDTreeBuilder
             _ => a.Lab.Item3.CompareTo(b.Lab.Item3)
         });
 
-        KDNode node = new(colors[mid]);
-
-        node.Left = Build(colors[0..mid], depth + 1);
-        node.Right = Build(colors[(mid + 1)..colors.Count], depth + 1);
+        KDNode node = new(colors[mid])
+        {
+            Left = Build(colors[0..mid], depth + 1),
+            Right = Build(colors[(mid + 1)..colors.Count], depth + 1)
+        };
 
         return node;
     }

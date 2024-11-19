@@ -1,5 +1,6 @@
-﻿using color_names_csharp.Utility;
-namespace color_names_csharp;
+﻿using ColorNamesSharp.Utility;
+
+namespace ColorNamesSharp;
 public class NamedColor(string name, short r, short g, short b)
 {
     public string Name { get; } = name;
@@ -7,3 +8,5 @@ public class NamedColor(string name, short r, short g, short b)
     public (float, float, float) Lab => ColorConverter.RGBToLab(Rgb);
     public string Hex => $"#{Rgb.Item1:X2}{Rgb.Item2:X2}{Rgb.Item3:X2}";
 }
+
+
