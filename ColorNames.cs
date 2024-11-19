@@ -1,7 +1,7 @@
-﻿using ColorNames.Tree;
-using ColorNames.Utility;
+﻿using ColorNamesSharp.Tree;
+using ColorNamesSharp.Utility;
 
-namespace ColorNames;
+namespace ColorNamesSharp;
 public class ColorNames(List<NamedColor> namedColors)
 {
     public KDNode? ColorTreeRoot { get; } = KDTreeBuilder.Build(namedColors, 0);

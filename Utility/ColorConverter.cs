@@ -1,4 +1,4 @@
-﻿namespace ColorNames.Utility;
+﻿namespace ColorNamesSharp.Utility;
 public static class ColorConverter
 {
     /// <summary>

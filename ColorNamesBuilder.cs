@@ -1,7 +1,7 @@
-﻿using ColorNames.Utility;
+﻿using ColorNamesSharp.Utility;
 using System.Reflection;
 
-namespace ColorNames;
+namespace ColorNamesSharp;
 public class ColorNamesBuilder
 {
     /// <summary>
