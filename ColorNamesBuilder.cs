@@ -12,7 +12,8 @@ public class ColorNamesBuilder
     /// <summary>
     /// Builds a ColorNames object from the list of named colors.
     /// </summary>
-    public ColorNames BuildColorNames => new(NamedColors);
+    public ColorNames Build() 
+        => new(NamedColors);
 
     /// <summary>
     /// Adds a named color to the list of named colors in this builder.

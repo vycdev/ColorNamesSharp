@@ -51,7 +51,7 @@ ColorNames colorNames = new ColorNamesBuilder()
 	.Add("Best Blue", "#3299fe") // Add your own custom colors
 	.LoadDefault() // Load the default color list
 	.AddFromCsv("path/to/your/colorlist.csv") // Add a custom color list from a csv file
-	.BuildColorNames; // Get a new ColorNames instance that includes all the colors you've added
+	.Build(); // Get a new ColorNames instance that includes all the colors you've added
 ```
 
 ## Getting a fiting color name
