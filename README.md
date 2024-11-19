@@ -57,17 +57,17 @@ ColorNames colorNames = new ColorNamesBuilder()
 ### Getting a fitting color name
 
 ```csharp
-NamedColor namedColor = new("Best Blue", 50, 153, 254);
+NamedColor customNamedColor = new("Best Blue", 50, 153, 254);
 
 // You can directly get the name of the color as a string
 string colorNameFromHex = colorNames.FindClosestColorName("#ffffff");
 string colorNameFromRgb = colorNames.FindClosestColorName(255, 255, 255);
-string colorNameFromNamedColor = colorNames.FindClosestColorName(namedColor);
+string colorNameFromNamedColor = colorNames.FindClosestColorName(customNamedColor);
 
 // Or similarly you can get the NamedColor object
 NamedColor namedColorFromHex = colorNames.FindClosestColorName("#ffffff");
 NamedColor namedColorFromRgb = colorNames.FindClosestColorName(255, 255, 255);
-NamedColor namedColorFromNamedColor = colorNames.FindClosestColorName(namedColor);
+NamedColor namedColorFromNamedColor = colorNames.FindClosestColorName(customNamedColor);
 
 // Or a random color
 NamedColor randomColor = colorNames.GetRandomNamedColor();
