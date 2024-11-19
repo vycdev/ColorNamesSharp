@@ -35,7 +35,7 @@ Other libraries with similar functionality seem to often approach this by iterat
 
 ### Pretty notes ✨
 While researching K-D trees, I put together some visuals to help me understand, and I figured why not make them pretty and provide it here. Hopfully these prove to be helpful for anyone interested in learning about K-D trees. And remember, there are plenty of other great resources out there (YouTube videos did it for me!).
-![kdTree](/kdTree.png)
+![kdTree](https://raw.githubusercontent.com/vycdev/color-names-csharp/refs/heads/main/kdTree.png)
 > [!NOTE]
 > You can open that image in a new tab for a nicer, full-resolution view.
 
