@@ -33,7 +33,7 @@ Other libraries with similar functionality seem to often approach this by iterat
 
 <br>
 
-### Pretty notes ✨
+## Pretty notes ✨
 You can find many resources online about KD-Trees, here's some visuals made by [UwUAroze](https://github.com/UwUAroze/Color-Names?tab=readme-ov-file#pretty-notes-) to help you understand how they work:
 ![kdTree](https://raw.githubusercontent.com/vycdev/ColorNamesSharp/refs/heads/main/kdTree.png)
 > [!NOTE]
@@ -41,11 +41,11 @@ You can find many resources online about KD-Trees, here's some visuals made by [
 
 <br>
 
-# Usage
+## Usage
 You can download and install the [nuget package from here.](https://www.nuget.org/packages/color-names-csharp) <br>
 Or you can clone this repository and use it as a library in your project.
 
-## Creating the instance
+### Creating the instance
 ```csharp
 ColorNames colorNames = new ColorNamesBuilder()
 	.Add("Best Blue", "#3299fe") // Add your own custom colors
@@ -54,7 +54,7 @@ ColorNames colorNames = new ColorNamesBuilder()
 	.BuildColorNames; // Get a new ColorNames instance that includes all the colors you've added
 ```
 
-## Getting a fitting color name
+### Getting a fitting color name
 
 ```csharp
 NamedColor namedColor = new("Best Blue", 50, 153, 254);
@@ -73,6 +73,6 @@ NamedColor namedColorFromNamedColor = colorNames.FindClosestColorName(namedColor
 NamedColor randomColor = colorNames.GetRandomNamedColor();
 ```
 
-### Credits 
+## Credits 
 
 This library is a C# implementation of the original [color names library by meodai](https://github.com/meodai/color-names) and it takes inspiration from [UwUAroze's implementation in Kotlin.](https://github.com/UwUAroze/Color-Names) Huge thanks to both of them for their work!
