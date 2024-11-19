@@ -49,7 +49,7 @@ You can find many resources online about KD-Trees, here's some visuals made by [
 <br>
 
 ## Usage
-You can download and install the [nuget package from here.](https://www.nuget.org/packages/color-names-csharp) <br>
+You can download and install the [nuget package from here.](https://www.nuget.org/packages/ColorNamesSharp/) <br>
 Or you can clone this repository and use it as a library in your project.
 
 ### Creating the instance
