@@ -1,6 +1,6 @@
 ﻿<img align="left" height="119" width="119" src="https://meodai.github.io/color-names/logo/cockatoo-fill.svg">
 
-# Color names
+# Color Names
 
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/vycdev/ColorNamesSharp/dotnet.yml)
 ![GitHub Release](https://img.shields.io/github/v/release/vycdev/colornamessharp)
