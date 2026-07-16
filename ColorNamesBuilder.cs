@@ -63,6 +63,10 @@ public class ColorNamesBuilder
         for (int i = 1; i < lines.Length; i++)
         {
             string? line = lines[i];
+
+            if (string.IsNullOrWhiteSpace(line))
+                continue;
+
             string[] parts = line.Split(',');
             string hex = parts[1];
             (short r, short g, short b) = ColorConverter.HexToRgb(hex);
