@@ -37,8 +37,11 @@ jobs:
             exit 1
           fi
 
+      - name: Build
+        run: dotnet build --configuration Release --no-restore -p:ContinuousIntegrationBuild=true
+
       - name: Pack
-        run: dotnet pack --configuration Release --no-restore --output artifacts -p:ContinuousIntegrationBuild=true
+        run: dotnet pack --configuration Release --no-build --output artifacts -p:ContinuousIntegrationBuild=true
 
       - name: Locate package
         id: package
