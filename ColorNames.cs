@@ -5,8 +5,6 @@ namespace ColorNamesSharp;
 public class ColorNames(List<NamedColor> namedColors)
 {
     public KDNode? ColorTreeRoot { get; } = KDTreeBuilder.Build(namedColors, 0);
-    private double MinDistance = double.PositiveInfinity;
-    private KDNode? BestNode = null;
 
     /// <summary>
     /// Gets a random color from the color list
@@ -23,14 +21,23 @@ public class ColorNames(List<NamedColor> namedColors)
     }
 
     /// <summary>
-    /// Sets the BestNode to the closest possible match of the given lab color values. 
+    /// Searches for the closest node to the given LAB color values.
     /// </summary>
     /// <param name="node"></param>
     /// <param name="l"></param>
     /// <param name="a"></param>
     /// <param name="b"></param>
     /// <param name="depth"></param>
-    private void SearchNearest(KDNode? node, float l, float a, float b, int depth)
+    /// <param name="minDistance"></param>
+    /// <param name="bestNode"></param>
+    private static void SearchNearest(
+        KDNode? node,
+        float l,
+        float a,
+        float b,
+        int depth,
+        ref double minDistance,
+        ref KDNode? bestNode)
     {
         if (node == null)
             return;
@@ -50,19 +57,19 @@ public class ColorNames(List<NamedColor> namedColors)
             (a - nodeLab.Item2) * (a - nodeLab.Item2) +
             (b - nodeLab.Item3) * (b - nodeLab.Item3));
 
-        if (dist < MinDistance)
+        if (dist < minDistance)
         {
-            MinDistance = dist;
-            BestNode = node;
+            minDistance = dist;
+            bestNode = node;
         }
 
         KDNode? firstChild = dim <= 0 ? node.Left : node.Right;
         KDNode? secondChild = dim <= 0 ? node.Right : node.Left;
 
-        SearchNearest(firstChild, l, a, b, depth + 1);
+        SearchNearest(firstChild, l, a, b, depth + 1, ref minDistance, ref bestNode);
 
-        if (dim * dim < MinDistance)
-            SearchNearest(secondChild, l, a, b, depth + 1);
+        if (Math.Abs(dim) < minDistance)
+            SearchNearest(secondChild, l, a, b, depth + 1, ref minDistance, ref bestNode);
     }
 
     /// <summary>
@@ -72,14 +79,9 @@ public class ColorNames(List<NamedColor> namedColors)
     /// <returns>A NamedColor</returns>
     public NamedColor? FindClosestColor((short, short, short) RGB)
     {
-        MinDistance = double.PositiveInfinity;
-        BestNode = null;
-
         (float l, float a, float b) = ColorConverter.RGBToLab(RGB);
 
-        SearchNearest(ColorTreeRoot, l, a, b, 0);
-
-        return BestNode?.Color;
+        return FindClosestColor(l, a, b);
     }
 
     /// <summary>
@@ -124,12 +126,12 @@ public class ColorNames(List<NamedColor> namedColors)
     /// <returns></returns>
     public NamedColor? FindClosestColor(float l, float a, float b)
     {
-        MinDistance = double.PositiveInfinity;
-        BestNode = null;
+        double minDistance = double.PositiveInfinity;
+        KDNode? bestNode = null;
 
-        SearchNearest(ColorTreeRoot, l, a, b, 0);
+        SearchNearest(ColorTreeRoot, l, a, b, 0, ref minDistance, ref bestNode);
 
-        return BestNode?.Color;
+        return bestNode?.Color;
     }
 
     /// <summary>
