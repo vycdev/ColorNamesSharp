@@ -1,0 +1,65 @@
+name: Publish NuGet package
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    name: Publish to NuGet.org
+    runs-on: ubuntu-latest
+    environment: nuget
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v7
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Verify release tag matches package version
+        if: github.event_name == 'release'
+        shell: bash
+        run: |
+          package_version="$(dotnet msbuild ColorNamesSharp.csproj -getProperty:Version -nologo)"
+          if [[ "${{ github.event.release.tag_name }}" != "$package_version" ]]; then
+            echo "Release tag '${{ github.event.release.tag_name }}' does not match package version '$package_version'."
+            exit 1
+          fi
+
+      - name: Pack
+        run: dotnet pack --configuration Release --no-restore --output artifacts -p:ContinuousIntegrationBuild=true
+
+      - name: Locate package
+        id: package
+        shell: bash
+        run: |
+          package="$(find artifacts -maxdepth 1 -type f -name '*.nupkg' ! -name '*.snupkg' -print -quit)"
+          if [[ -z "$package" ]]; then
+            echo "No NuGet package was produced."
+            exit 1
+          fi
+          echo "path=$package" >> "$GITHUB_OUTPUT"
+
+      - name: Log in to NuGet.org
+        id: login
+        uses: NuGet/login@v1
+        with:
+          user: vycdev
+
+      - name: Publish package
+        run: >-
+          dotnet nuget push "${{ steps.package.outputs.path }}"
+          --api-key "${{ steps.login.outputs.NUGET_API_KEY }}"
+          --source https://api.nuget.org/v3/index.json
+          --skip-duplicate
