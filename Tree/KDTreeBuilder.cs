@@ -1,7 +1,12 @@
 ﻿namespace ColorNamesSharp.Tree;
 
+/// <summary>Builds a balanced three-dimensional KD-tree from named colors.</summary>
 public class KDTreeBuilder
 {
+    /// <summary>Builds a KD-tree by recursively partitioning colors in CIELAB space.</summary>
+    /// <param name="colors">The colors to include in the tree.</param>
+    /// <param name="depth">The current recursion depth, normally zero for the root.</param>
+    /// <returns>The root node, or <see langword="null"/> when <paramref name="colors"/> is empty.</returns>
     public static KDNode? Build(List<NamedColor> colors, int depth)
     {
         if (colors.Count == 0)
@@ -19,8 +24,8 @@ public class KDTreeBuilder
 
         KDNode node = new(colors[mid])
         {
-            Left = Build(colors[0..mid], depth + 1),
-            Right = Build(colors[(mid + 1)..colors.Count], depth + 1)
+            Left = Build(colors.GetRange(0, mid), depth + 1),
+            Right = Build(colors.GetRange(mid + 1, colors.Count - mid - 1), depth + 1)
         };
 
         return node;

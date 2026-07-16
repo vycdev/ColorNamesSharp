@@ -2,6 +2,7 @@
 using System.Reflection;
 
 namespace ColorNamesSharp;
+/// <summary>Builds a <see cref="ColorNames"/> instance from bundled, custom, or CSV color data.</summary>
 public class ColorNamesBuilder
 {
     /// <summary>
@@ -10,19 +11,20 @@ public class ColorNamesBuilder
     public List<NamedColor> NamedColors { get; } = [];
 
     /// <summary>
-    /// Builds a ColorNames object from the list of named colors.
+    /// Builds a <see cref="ColorNames"/> instance from the current color list.
     /// </summary>
+    /// <returns>A lookup instance containing the configured colors.</returns>
     public ColorNames Build() 
         => new(NamedColors);
 
     /// <summary>
     /// Adds a named color to the list of named colors in this builder.
     /// </summary>
-    /// <param name="name"></param>
-    /// <param name="r"></param>
-    /// <param name="g"></param>
-    /// <param name="b"></param>
-    /// <returns></returns>
+    /// <param name="name">The display name of the color.</param>
+    /// <param name="r">The red channel value from 0 through 255.</param>
+    /// <param name="g">The green channel value from 0 through 255.</param>
+    /// <param name="b">The blue channel value from 0 through 255.</param>
+    /// <returns>This builder, so additional calls can be chained.</returns>
     public ColorNamesBuilder Add(string name, short r, short g, short b)
     {
         NamedColors.Add(new NamedColor(name, r, g, b));
@@ -32,9 +34,10 @@ public class ColorNamesBuilder
     /// <summary>
     /// Adds a named color to the list of named colors in this builder.
     /// </summary>
-    /// <param name="name"></param>
-    /// <param name="hex"></param>
-    /// <returns></returns>
+    /// <param name="name">The display name of the color.</param>
+    /// <param name="hex">The color value in <c>#RRGGBB</c> format.</param>
+    /// <returns>This builder, so additional calls can be chained.</returns>
+    /// <exception cref="ArgumentException"><paramref name="hex"/> is not a six-digit hexadecimal color.</exception>
     public ColorNamesBuilder Add(string name, string hex)
     {
         (short r, short g, short b) = ColorConverter.HexToRgb(hex);
@@ -45,8 +48,8 @@ public class ColorNamesBuilder
     /// <summary>
     /// Adds a named color to the list of named colors in this builder.
     /// </summary>
-    /// <param name="color"></param>
-    /// <returns></returns>
+    /// <param name="color">The color to add.</param>
+    /// <returns>This builder, so additional calls can be chained.</returns>
     public ColorNamesBuilder Add(NamedColor color)
     {
         NamedColors.Add(color);
@@ -82,7 +85,8 @@ public class ColorNamesBuilder
     /// The CSV file format should be: name, hex
     /// The first line of the CSV file is ignored.
     /// </summary>
-    /// <param name="path">Path to CSV file</param>
+    /// <param name="path">The path to a CSV file whose header is followed by <c>name,hex</c> rows.</param>
+    /// <returns>This builder, so additional calls can be chained.</returns>
     public ColorNamesBuilder AddFromCsv(string path)
     {
         string[] lines = File.ReadAllLines(path);
@@ -95,6 +99,7 @@ public class ColorNamesBuilder
     /// 
     /// Calling this function multiple times will add the default color names multiple times to the list. 
     /// </summary>
+    /// <returns>This builder, so additional calls can be chained.</returns>
     public ColorNamesBuilder LoadDefault()
     {
         using Stream? stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("ColorNamesSharp.ColorLists.Default.csv");

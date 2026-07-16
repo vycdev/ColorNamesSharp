@@ -1,11 +1,12 @@
 ﻿namespace ColorNamesSharp.Utility;
+/// <summary>Provides conversions between supported color representations.</summary>
 public static class ColorConverter
 {
     /// <summary>
-    /// Converts RGB color values to LAB color values
+    /// Converts RGB color values to CIELAB color values.
     /// </summary>
-    /// <param name="RGB">A touple continaing the RGB color values</param>
-    /// <returns>A touple containing the LAB color values</returns>
+    /// <param name="RGB">The red, green, and blue channel values.</param>
+    /// <returns>The lightness, a-axis, and b-axis CIELAB values.</returns>
     public static (float, float, float) RGBToLab((short, short, short) RGB)
     {
         float[] xyz = new float[3];
@@ -64,11 +65,11 @@ public static class ColorConverter
     /// <summary>
     /// Converts a hex color value to RGB.
     /// 
-    /// Hex string format: #RRGGBB
+    /// Hex string format: <c>#RRGGBB</c>.
     /// </summary>
-    /// <param name="hex">Hex color string</param>
-    /// <returns>A touple containing the rgb values</returns>
-    /// <exception cref="ArgumentException">Invalid hex string</exception>
+    /// <param name="hex">The hexadecimal color value.</param>
+    /// <returns>The red, green, and blue channel values.</returns>
+    /// <exception cref="ArgumentException"><paramref name="hex"/> is not a six-digit hexadecimal color.</exception>
     public static (short r, short g, short b) HexToRgb(string hex)
     {
         if (hex.Length != 7 || hex[0] != '#')

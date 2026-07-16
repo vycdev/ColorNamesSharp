@@ -33,11 +33,29 @@ Other libraries with similar functionality seem to often approach this by iterat
 1. The sRGB color space isn't all that accurate in terms of visual similarity, ie: 3 sRGB values that are equally apart in terms of raw numerical value are unlikely to be visually "different" by the same factor. Okay... so, how do we put a number on the visual similarity of colors? Fortunately, that's not my job. The [CIELAB Color Space](https://en.wikipedia.org/wiki/CIELAB_color_space) has us covered! This color space precisely revolves around positioning colors with uniform visual perception and for this reason, its used for all sorts of color correction work, and is exactly what we need. Perfect, we convert our values from the sRGB color space to the CIELAB color space, problem one solved!
 2. Iterating through >30,000 vectors in a 3D space and finding the distance between all of them to a point is... a lot of calculations. But it's exactly what we need, since that's how we find the [Delta-E](https://en.wikipedia.org/wiki/Color_difference#CIELAB_%CE%94E*) variance between all our CIELAB colors to see whats the closest. So, we should really try to optimise this. For this we cache our colors in a [K-D Tree](https://en.wikipedia.org/wiki/K-d_tree) with 3 dimensions, providing us with fast [nearest neighbour searches](https://en.wikipedia.org/wiki/Nearest_neighbor_search). This takes the time complexity for searches from O(n) to O(logn). In practice, this makes a pretty substantial difference.
 
-### Benchmarks:
+### Benchmarks
 
-> [!NOTE]
-> This section is a work in progress.
-> If you'd like to contribute to the benchmarks, feel free to open a PR with your results. 
+The repository includes a [BenchmarkDotNet](https://benchmarkdotnet.org/) suite covering:
+
+- exact name and hexadecimal lookups;
+- nearest-color lookup using the KD-tree;
+- an equivalent precomputed linear CIELAB scan for comparison;
+- loading the bundled CSV and constructing the search index.
+
+Run all benchmarks from the repository root in Release mode for either supported runtime:
+
+```shell
+dotnet run --project benchmarks/ColorNamesSharp.Benchmarks -c Release -f net8.0
+dotnet run --project benchmarks/ColorNamesSharp.Benchmarks -c Release -f net10.0
+```
+
+To run one group, pass a BenchmarkDotNet filter:
+
+```shell
+dotnet run --project benchmarks/ColorNamesSharp.Benchmarks -c Release -f net10.0 -- --filter "*LookupBenchmarks*"
+```
+
+The suite supports both .NET 8 and .NET 10, reports managed allocations, and writes detailed reports to `BenchmarkDotNet.Artifacts/results`. Run benchmarks on an otherwise idle machine and compare results produced on the same hardware and operating system.
 
 <br>
 
@@ -51,6 +69,8 @@ You can find many resources online about KD-Trees, here's some visuals made by [
 
 ## Development
 
+Install the .NET 8 and .NET 10 SDKs to build and test every target framework.
+
 Run the complete test suite from the repository root:
 
 ```shell
@@ -61,13 +81,36 @@ dotnet test ColorNamesSharp.sln
 You can download and install the [nuget package from here.](https://www.nuget.org/packages/ColorNamesSharp/) <br>
 Or you can clone this repository and use it as a library in your project.
 
+```shell
+dotnet add package ColorNamesSharp
+```
+
+### Supported frameworks
+
+| Target | Intended consumers |
+| --- | --- |
+| `net10.0` | Current .NET applications |
+| `net8.0` | Modern .NET applications |
+| `netstandard2.0` | Older .NET implementations and .NET Framework applications |
+
 ### Creating the instance
+
 ```csharp
 ColorNames colorNames = new ColorNamesBuilder()
 	.Add("Best Blue", "#3299fe") // Add your own custom colors
 	.LoadDefault() // Load the default color list
 	.AddFromCsv("path/to/your/colorlist.csv") // Add a custom color list from a csv file
 	.Build(); // Get a new ColorNames instance that includes all the colors you've added
+```
+
+Builder methods are chainable, and colors remain in insertion order. Calling `LoadDefault()` more than once intentionally adds the default list more than once.
+
+Custom CSV files must include a header row followed by `name,hex` rows:
+
+```csv
+name,hex
+Best Blue,#3299fe
+Classic Rose,#facfea
 ```
 
 ### Accessing the configured colors
@@ -103,6 +146,10 @@ NamedColor? namedColorFromNamedColor = colorNames.FindClosestColor(customNamedCo
 // Or a random color
 NamedColor? randomColor = colorNames.GetRandomNamedColor();
 ```
+
+Hexadecimal inputs use the six-digit `#RRGGBB` form. Invalid values throw `ArgumentException`; an empty color collection returns `null` from `FindClosestColor` and `"Unknown"` from `FindClosestColorName`.
+
+The package also includes an XML documentation file, so the public API descriptions and parameter details appear in IDE IntelliSense.
 
 ## Credits 
 

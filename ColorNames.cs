@@ -3,6 +3,9 @@ using ColorNamesSharp.Utility;
 
 namespace ColorNamesSharp;
 
+/// <summary>
+/// Finds exact or perceptually nearest matches in a configured collection of named colors.
+/// </summary>
 public class ColorNames
 {
     private readonly NamedColor[] namedColors;
@@ -14,11 +17,16 @@ public class ColorNames
     /// </summary>
     public IReadOnlyList<NamedColor> Colors { get; }
 
+    /// <summary>Gets the root of the CIELAB KD-tree used for nearest-neighbor searches.</summary>
     public KDNode? ColorTreeRoot { get; }
 
+    /// <summary>Creates a lookup over the supplied colors.</summary>
+    /// <param name="namedColors">The colors to index, in insertion order.</param>
+    /// <exception cref="ArgumentNullException"><paramref name="namedColors"/> is <see langword="null"/>.</exception>
     public ColorNames(IEnumerable<NamedColor> namedColors)
     {
-        ArgumentNullException.ThrowIfNull(namedColors);
+        if (namedColors == null)
+            throw new ArgumentNullException(nameof(namedColors));
 
         this.namedColors = namedColors.ToArray();
         Colors = Array.AsReadOnly(this.namedColors);
@@ -28,8 +36,11 @@ public class ColorNames
 
         foreach (NamedColor color in this.namedColors)
         {
-            _ = colorsByName.TryAdd(color.Name, color);
-            _ = colorsByHex.TryAdd(color.Hex, color);
+            if (!colorsByName.ContainsKey(color.Name))
+                colorsByName.Add(color.Name, color);
+
+            if (!colorsByHex.ContainsKey(color.Hex))
+                colorsByHex.Add(color.Hex, color);
         }
     }
 
@@ -70,9 +81,9 @@ public class ColorNames
     }
 
     /// <summary>
-    /// Gets a random color from the color list
+    /// Gets a random color from the configured color list.
     /// </summary>
-    /// <returns>A NamedColor</returns>
+    /// <returns>A random color, or <see langword="null"/> when the list is empty.</returns>
     public NamedColor? GetRandomNamedColor()
     {
         if (namedColors.Length == 0)
@@ -136,10 +147,10 @@ public class ColorNames
     }
 
     /// <summary>
-    /// Finds the colosest color for given RGB color values
+    /// Finds the closest color for the given RGB color values.
     /// </summary>
-    /// <param name="RGB">A touple with the RGB color values</param>
-    /// <returns>A NamedColor</returns>
+    /// <param name="RGB">The red, green, and blue channel values.</param>
+    /// <returns>The closest configured color, or <see langword="null"/> when the list is empty.</returns>
     public NamedColor? FindClosestColor((short, short, short) RGB)
     {
         (float l, float a, float b) = ColorConverter.RGBToLab(RGB);
