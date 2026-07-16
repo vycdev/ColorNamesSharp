@@ -63,6 +63,13 @@ public class ColorNamesBuilderTests
             builder.NamedColors,
             color => color.Name == "Zürich Blue");
         Assert.Equal("#248BCC", zurichBlue.Hex);
+
+        ColorNames colors = builder.Build();
+        Assert.Equal(31_912, colors.Colors.Count);
+        Assert.True(colors.TryGetByName("zürich blue", out NamedColor? byName));
+        Assert.True(colors.TryGetByHex("#248bcc", out NamedColor? byHex));
+        Assert.Same(zurichBlue, byName);
+        Assert.Same(zurichBlue, byHex);
     }
 
     [Fact]

@@ -2,9 +2,72 @@
 using ColorNamesSharp.Utility;
 
 namespace ColorNamesSharp;
-public class ColorNames(List<NamedColor> namedColors)
+
+public class ColorNames
 {
-    public KDNode? ColorTreeRoot { get; } = KDTreeBuilder.Build(namedColors, 0);
+    private readonly NamedColor[] namedColors;
+    private readonly Dictionary<string, NamedColor> colorsByName;
+    private readonly Dictionary<string, NamedColor> colorsByHex;
+
+    /// <summary>
+    /// The configured colors in their original insertion order.
+    /// </summary>
+    public IReadOnlyList<NamedColor> Colors { get; }
+
+    public KDNode? ColorTreeRoot { get; }
+
+    public ColorNames(IEnumerable<NamedColor> namedColors)
+    {
+        ArgumentNullException.ThrowIfNull(namedColors);
+
+        this.namedColors = namedColors.ToArray();
+        Colors = Array.AsReadOnly(this.namedColors);
+        ColorTreeRoot = KDTreeBuilder.Build(this.namedColors.ToList(), 0);
+        colorsByName = new Dictionary<string, NamedColor>(StringComparer.OrdinalIgnoreCase);
+        colorsByHex = new Dictionary<string, NamedColor>(StringComparer.OrdinalIgnoreCase);
+
+        foreach (NamedColor color in this.namedColors)
+        {
+            _ = colorsByName.TryAdd(color.Name, color);
+            _ = colorsByHex.TryAdd(color.Hex, color);
+        }
+    }
+
+    /// <summary>
+    /// Tries to get an exact color by name using a case-insensitive lookup.
+    /// If duplicate names are configured, the first color is returned.
+    /// </summary>
+    /// <param name="name">The color name.</param>
+    /// <param name="color">The matching color, or null when no match exists.</param>
+    /// <returns>True when a matching color exists; otherwise, false.</returns>
+    public bool TryGetByName(string? name, out NamedColor? color)
+    {
+        if (name == null)
+        {
+            color = null;
+            return false;
+        }
+
+        return colorsByName.TryGetValue(name, out color);
+    }
+
+    /// <summary>
+    /// Tries to get an exact color by six-digit hex value using a case-insensitive lookup.
+    /// If duplicate values are configured, the first color is returned.
+    /// </summary>
+    /// <param name="hex">The color value in #RRGGBB format.</param>
+    /// <param name="color">The matching color, or null when no match exists.</param>
+    /// <returns>True when a matching color exists; otherwise, false.</returns>
+    public bool TryGetByHex(string? hex, out NamedColor? color)
+    {
+        if (hex == null)
+        {
+            color = null;
+            return false;
+        }
+
+        return colorsByHex.TryGetValue(hex, out color);
+    }
 
     /// <summary>
     /// Gets a random color from the color list
@@ -12,11 +75,11 @@ public class ColorNames(List<NamedColor> namedColors)
     /// <returns>A NamedColor</returns>
     public NamedColor? GetRandomNamedColor()
     {
-        if (namedColors.Count == 0)
+        if (namedColors.Length == 0)
             return null;
 
         Random random = new();
-        int index = random.Next(namedColors.Count);
+        int index = random.Next(namedColors.Length);
         return namedColors[index];
     }
 

@@ -67,7 +67,22 @@ ColorNames colorNames = new ColorNamesBuilder()
 	.Add("Best Blue", "#3299fe") // Add your own custom colors
 	.LoadDefault() // Load the default color list
 	.AddFromCsv("path/to/your/colorlist.csv") // Add a custom color list from a csv file
-	.BuildColorNames; // Get a new ColorNames instance that includes all the colors you've added
+	.Build(); // Get a new ColorNames instance that includes all the colors you've added
+```
+
+### Accessing the configured colors
+
+```csharp
+// Enumerate the colors in their original insertion order
+foreach (NamedColor color in colorNames.Colors)
+    Console.WriteLine($"{color.Name}: {color.Hex}");
+
+// Exact lookups are case-insensitive and do not calculate color distance
+if (colorNames.TryGetByName("alphabet blue", out NamedColor? byName))
+    Console.WriteLine(byName.Hex);
+
+if (colorNames.TryGetByHex("#abcdef", out NamedColor? byHex))
+    Console.WriteLine(byHex.Name);
 ```
 
 ### Getting a fitting color name
@@ -81,12 +96,12 @@ string colorNameFromRgb = colorNames.FindClosestColorName(255, 255, 255);
 string colorNameFromNamedColor = colorNames.FindClosestColorName(customNamedColor);
 
 // Or similarly you can get the NamedColor object
-NamedColor namedColorFromHex = colorNames.FindClosestColorName("#ffffff");
-NamedColor namedColorFromRgb = colorNames.FindClosestColorName(255, 255, 255);
-NamedColor namedColorFromNamedColor = colorNames.FindClosestColorName(customNamedColor);
+NamedColor? namedColorFromHex = colorNames.FindClosestColor("#ffffff");
+NamedColor? namedColorFromRgb = colorNames.FindClosestColor(255, 255, 255);
+NamedColor? namedColorFromNamedColor = colorNames.FindClosestColor(customNamedColor);
 
 // Or a random color
-NamedColor randomColor = colorNames.GetRandomNamedColor();
+NamedColor? randomColor = colorNames.GetRandomNamedColor();
 ```
 
 ## Credits 
